@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1E1E1E">
+
+    <!-- 顶部日期栏 -->
+    <LinearLayout
+        android:id="@+id/header_date"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#2D2D2D"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/tv_current_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2024年1月1日"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+        <!-- 使用系统图标避免资源错误 -->
+        <ImageView
+            android:id="@+id/iv_calendar_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            android:tint="#4CAF50" />
+
+    </LinearLayout>
+
+    <!-- 日历容器 -->
+    <LinearLayout
+        android:id="@+id/calendar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#2D2D2D"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <!-- 月份导航栏 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:background="#3D3D3D"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp">
+
+            <Button
+                android:id="@+id/btn_previous"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="◀"
+                android:textSize="20sp"
+                android:textColor="#4CAF50"
+                android:background="@drawable/button_bg"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_month_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="2024年1月"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="▶"
+                android:textSize="20sp"
+                android:textColor="#4CAF50"
+                android:background="@drawable/button_bg"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        <!-- 日期网格 -->
+        <GridView
+            android:id="@+id/gv_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:numColumns="7"
+            android:verticalSpacing="1dp"
+            android:horizontalSpacing="1dp"
+            android:gravity="center"
+            android:background="#3D3D3D" />
+
+    </LinearLayout>
+
+    <!-- 内容区域 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 作业部分 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="今日作业"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <!-- 8个科目的作业输入 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Subject 1-8 完整列表 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="语文"
+                        android:textColor="#FF6B6B"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_homework_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:hint="语文作业..."
+                        android:textColorHint="#888888" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="数学"
+                        android:textColor="#4ECDC4"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_homework_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:hint="数学作业..."
+                        android:textColorHint="#888888" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="英语"
+                        android:textColor="#45B7D1"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_homework_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:hint="英语作业..."
+                        android:textColorHint="#888888" />
+                </LinearLayout>
+
+                <!-- 继续添加 Subject 4-8 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="物理"
+                        android:textColor="#96CEB4"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_homework_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:hint="物理作业..."
+                        android:textColorHint="#888888" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="化学"
+                        android:textColor="#FECA57"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_homework_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:hint="化学作业..."
+                        android:textColorHint="#888888" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="生物"
+                        android:textColor="#FF9FF3"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_homework_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:hint="生物作业..."
+                        android:textColorHint="#888888" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="历史"
+                        android:textColor="#54A0FF"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_homework_7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:hint="历史作业..."
+                        android:textColorHint="#888888" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="地理"
+                        android:textColor="#5F27CD"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/et_homework_8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:hint="地理作业..."
+                        android:textColorHint="#888888" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 日记部分 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="今日日记"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/et_diary"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/edittext_bg"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:padding="12dp"
+                android:gravity="top"
+                android:hint="写下今天的日记..."
+                android:textColorHint="#888888"
+                android:inputType="textMultiLine" />
+
+            <!-- 保存按钮 -->
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="保存"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:background="#4CAF50"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="24dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
