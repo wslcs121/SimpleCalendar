@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1E1E1E">
+    android:background="@drawable/background_layer"
+    >
 
     <!-- 顶部日期栏 -->
     <LinearLayout
@@ -15,7 +16,7 @@
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#2D2D2D"
+        android:background="#CC2D2D2D"
         android:paddingHorizontal="16dp">
 
         <TextView
@@ -45,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#2D2D2D"
+        android:background="#CE2D2D2D"
         android:padding="16dp"
         android:visibility="gone">
 
@@ -56,7 +57,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp"
-            android:background="#3D3D3D"
+            android:background="#CF3D3D3D"
             android:paddingVertical="8dp"
             android:paddingHorizontal="16dp">
 
@@ -102,7 +103,7 @@
             android:verticalSpacing="1dp"
             android:horizontalSpacing="1dp"
             android:gravity="center"
-            android:background="#3D3D3D"
+            android:background="#CC3D3D3D"
             android:stretchMode="columnWidth"
             android:columnWidth="0dp" />  <!-- 添加列宽限制 -->
 
@@ -168,9 +169,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:padding="8dp"
-                        app:tint="#888888" />
+                        android:background="?attr/selectableItemBackgroundBorderless" />
                 </LinearLayout>
 
                 <LinearLayout

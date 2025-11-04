@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 背景图片 -->
+    <item>
+        <bitmap android:src="@drawable/bg_pic" android:gravity="center" />
+    </item>
+    <!-- 半透明黑色遮罩层，提高文字可读性 -->
+    <item>
+        <color android:color="#2B3C3402" />  <!-- 50%黑色透明度 -->
+    </item>
+</layer-list>
