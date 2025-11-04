@@ -95,10 +95,11 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:numColumns="7"
-            android:verticalSpacing="1dp"
-            android:horizontalSpacing="1dp"
+            android:verticalSpacing="0.5dp"
+            android:horizontalSpacing="0.5dp"
             android:gravity="center"
-            android:background="#3D3D3D" />
+            android:background="#3D3D3D"
+            android:stretchMode="columnWidth" />
 
     </LinearLayout>
 
@@ -107,7 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="16dp">
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -154,6 +155,15 @@
                         android:padding="8dp"
                         android:hint="语文作业..."
                         android:textColorHint="#888888" />
+
+                    <ImageButton
+                        android:id="@+id/btn_edit_1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="#888888"
+                        android:padding="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -179,6 +189,14 @@
                         android:padding="8dp"
                         android:hint="数学作业..."
                         android:textColorHint="#888888" />
+                    <ImageButton
+                        android:id="@+id/btn_edit_2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/_888888"
+                        android:padding="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -204,6 +222,15 @@
                         android:padding="8dp"
                         android:hint="英语作业..."
                         android:textColorHint="#888888" />
+
+                    <ImageButton
+                        android:id="@+id/btn_edit_3"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="#888888"
+                        android:padding="8dp" />
                 </LinearLayout>
 
                 <!-- 继续添加 Subject 4-8 -->
@@ -230,6 +257,14 @@
                         android:padding="8dp"
                         android:hint="物理作业..."
                         android:textColorHint="#888888" />
+                    <ImageButton
+                        android:id="@+id/btn_edit_4"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="#888888"
+                        android:padding="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -255,6 +290,14 @@
                         android:padding="8dp"
                         android:hint="化学作业..."
                         android:textColorHint="#888888" />
+                    <ImageButton
+                        android:id="@+id/btn_edit_5"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="#888888"
+                        android:padding="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -280,6 +323,14 @@
                         android:padding="8dp"
                         android:hint="生物作业..."
                         android:textColorHint="#888888" />
+                    <ImageButton
+                        android:id="@+id/btn_edit_6"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="#888888"
+                        android:padding="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -305,6 +356,14 @@
                         android:padding="8dp"
                         android:hint="历史作业..."
                         android:textColorHint="#888888" />
+                    <ImageButton
+                        android:id="@+id/btn_edit_7"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="#888888"
+                        android:padding="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -330,6 +389,14 @@
                         android:padding="8dp"
                         android:hint="地理作业..."
                         android:textColorHint="#888888" />
+                    <ImageButton
+                        android:id="@+id/btn_edit_8"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="#888888"
+                        android:padding="8dp" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -10,9 +10,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import androidx.appcompat.app.AlertDialog;  // 添加AlertDialog导入
+import android.content.DialogInterface;     // 添加DialogInterface导入
+import android.view.LayoutInflater;         // 添加LayoutInflater导入
+import android.widget.AdapterView;          // 添加AdapterView导入
+import org.json.JSONArray;
+
+
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView tvCurrentDate, tvMonthYear;
     private LinearLayout calendarContainer, headerDate;
     private GridView gvCalendar;
@@ -25,11 +31,30 @@ public class MainActivity extends AppCompatActivity {
     private CalendarAdapter calendarAdapter;
     private boolean isCalendarVisible = false;
 
+    // ↓↓↓ 在这里添加科目相关成员变量 ↓↓↓
+    private SubjectInfo[] subjects;
+    private ImageButton[] editButtons = new ImageButton[8];
+    private int currentEditingSubjectIndex = -1;
+    // ↑↑↑ 添加到这里 ↑↑↑
+
     // 科目颜色配置
     private final int[] subjectColors = {
             0xFFFF6B6B, 0xFF4ECDC4, 0xFF45B7D1, 0xFF96CEB4,
             0xFFFECA57, 0xFFFF9FF3, 0xFF54A0FF, 0xFF5F27CD
     };
+
+    // 在MainActivity类开头添加科目数据类
+    private static class SubjectInfo {
+        String name;
+        String hint;
+        int color;
+
+        SubjectInfo(String name, String hint, int color) {
+            this.name = name;
+            this.hint = hint;
+            this.color = color;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +67,20 @@ public class MainActivity extends AppCompatActivity {
         updateCalendar();
         loadCurrentDateData();
     }
+    private void initSubjects() {
+        subjects = new SubjectInfo[]{
+                new SubjectInfo("语文", "语文作业...", 0xFFFF6B6B),
+                new SubjectInfo("数学", "数学作业...", 0xFF4ECDC4),
+                new SubjectInfo("英语", "英语作业...", 0xFF45B7D1),
+                new SubjectInfo("物理", "物理作业...", 0xFF96CEB4),
+                new SubjectInfo("化学", "化学作业...", 0xFFFECA57),
+                new SubjectInfo("生物", "生物作业...", 0xFFFF9FF3),
+                new SubjectInfo("历史", "历史作业...", 0xFF54A0FF),
+                new SubjectInfo("地理", "地理作业...", 0xFF5F27CD)
+        };
+    }
+    // ↑↑↑ 添加到这里 ↑↑↑
+
 
     private void initViews() {
         tvCurrentDate = findViewById(R.id.tv_current_date);
@@ -63,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
         homeworkEdits[5] = findViewById(R.id.et_homework_6);
         homeworkEdits[6] = findViewById(R.id.et_homework_7);
         homeworkEdits[7] = findViewById(R.id.et_homework_8);
+
+        // 初始化编辑按钮数组
+        editButtons[0] = findViewById(R.id.btn_edit_1);
+        editButtons[1] = findViewById(R.id.btn_edit_2);
+        editButtons[2] = findViewById(R.id.btn_edit_3);
+        editButtons[3] = findViewById(R.id.btn_edit_4);
+        editButtons[4] = findViewById(R.id.btn_edit_5);
+        editButtons[5] = findViewById(R.id.btn_edit_6);
+        editButtons[6] = findViewById(R.id.btn_edit_7);
+        editButtons[7] = findViewById(R.id.btn_edit_8);
     }
 
     private void initData() {
@@ -80,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
                 subjectLabel.setTextColor(subjectColors[i]);
             }
         }
+        initSubjects();
+        loadSubjectsFromPreferences();
     }
 
     private void setupEventListeners() {
@@ -142,6 +193,17 @@ public class MainActivity extends AppCompatActivity {
             updateCalendar();
         });
 
+        // 为每个编辑按钮设置点击事件
+        for (int i = 0; i < editButtons.length; i++) {
+            final int subjectIndex = i;
+            editButtons[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showEditSubjectDialog(subjectIndex);
+                }
+            });
+        }
+
         // 日期点击事件
         gvCalendar.setOnItemClickListener((parent, view, position, id) -> {
             CalendarDateItem dateItem = calendarAdapter.getItem(position);
@@ -160,6 +222,146 @@ public class MainActivity extends AppCompatActivity {
 
         // 保存按钮点击事件
         btnSave.setOnClickListener(v -> saveCurrentDateData());
+    }
+
+    // ↓↓↓ 在setupEventListeners方法后添加科目编辑相关方法 ↓↓↓
+    // 显示科目编辑对话框
+    private void showEditSubjectDialog(final int subjectIndex) {
+        currentEditingSubjectIndex = subjectIndex;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_edit_subject, null);
+        builder.setView(dialogView);
+
+        final EditText etSubjectName = dialogView.findViewById(R.id.et_subject_name);
+        final EditText etSubjectHint = dialogView.findViewById(R.id.et_subject_hint);
+        GridView gvColors = dialogView.findViewById(R.id.gv_colors);
+        Button btnDelete = dialogView.findViewById(R.id.btn_delete);
+        Button btnCancel = dialogView.findViewById(R.id.btn_cancel);
+        Button btnSave = dialogView.findViewById(R.id.btn_save_subject);
+
+        // 设置当前值
+        SubjectInfo currentSubject = subjects[subjectIndex];
+        etSubjectName.setText(currentSubject.name);
+        etSubjectHint.setText(currentSubject.hint);
+
+        // 设置颜色选择器
+        final int[] colorOptions = {
+                0xFFFF6B6B, 0xFF4ECDC4, 0xFF45B7D1, 0xFF96CEB4,
+                0xFFFECA57, 0xFFFF9FF3, 0xFF54A0FF, 0xFF5F27CD,
+                0xFFFF5252, 0xFF448AFF, 0xFFE040FB, 0xFF18FFFF,
+                0xFFFFAB00, 0xFF69F0AE, 0xFFFF4081, 0xFF7C4DFF
+        };
+
+        gvColors.setAdapter(new ColorAdapter(colorOptions, currentSubject.color));
+        gvColors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                currentSubject.color = colorOptions[position];
+                ((ColorAdapter) gvColors.getAdapter()).setSelectedColor(colorOptions[position]);
+            }
+        });
+
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newName = etSubjectName.getText().toString().trim();
+                String newHint = etSubjectHint.getText().toString().trim();
+
+                if (!newName.isEmpty()) {
+                    subjects[subjectIndex].name = newName;
+                    subjects[subjectIndex].hint = newHint.isEmpty() ? newName + "作业..." : newHint;
+                    updateSubjectDisplay(subjectIndex);
+                    saveSubjectsToPreferences();
+                    dialog.dismiss();
+                    Toast.makeText(MainActivity.this, "科目已更新", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "科目名称不能为空", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("确认删除")
+                        .setMessage("确定要删除这个科目吗？")
+                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 这里可以实现科目删除逻辑
+                                Toast.makeText(MainActivity.this, "科目删除功能待实现", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
+            }
+        });
+
+        dialog.show();
+    }
+
+    // 颜色适配器
+    private class ColorAdapter extends BaseAdapter {
+        private int[] colors;
+        private int selectedColor;
+
+        ColorAdapter(int[] colors, int selectedColor) {
+            this.colors = colors;
+            this.selectedColor = selectedColor;
+        }
+
+        @Override
+        public int getCount() {
+            return colors.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return colors[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = convertView;
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.item_color, parent, false);
+            }
+
+            View colorView = view.findViewById(R.id.color_view);
+            View selectionIndicator = view.findViewById(R.id.selection_indicator);
+
+            int color = colors[position];
+            colorView.setBackgroundColor(color);
+
+            // 显示选中状态
+            boolean isSelected = (color == selectedColor);
+            selectionIndicator.setVisibility(isSelected ? View.VISIBLE : View.INVISIBLE);
+
+            return view;
+        }
+
+        public void setSelectedColor(int color) {
+            this.selectedColor = color;
+            notifyDataSetChanged();
+        }
     }
 
     private void toggleCalendar() {
@@ -260,6 +462,99 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // 保存科目设置到SharedPreferences
+    private void saveSubjectsToPreferences() {
+        try {
+            JSONArray subjectsArray = new JSONArray();
+            for (SubjectInfo subject : subjects) {
+                JSONObject subjectJson = new JSONObject();
+                subjectJson.put("name", subject.name);
+                subjectJson.put("hint", subject.hint);
+                subjectJson.put("color", subject.color);
+                subjectsArray.put(subjectJson);
+            }
+            PreferenceHelper.putString(this, "subjects", subjectsArray.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 从SharedPreferences加载科目设置
+    private void loadSubjectsFromPreferences() {
+        String subjectsJson = PreferenceHelper.getString(this, "subjects", "");
+        if (!subjectsJson.isEmpty()) {
+            try {
+                JSONArray subjectsArray = new JSONArray(subjectsJson);
+                for (int i = 0; i < subjectsArray.length() && i < subjects.length; i++) {
+                    JSONObject subjectJson = subjectsArray.getJSONObject(i);
+                    subjects[i].name = subjectJson.getString("name");
+                    subjects[i].hint = subjectJson.getString("hint");
+                    subjects[i].color = subjectJson.getInt("color");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // 更新单个科目显示
+    private void updateSubjectDisplay(int subjectIndex) {
+        if (subjectIndex >= 0 && subjectIndex < homeworkEdits.length) {
+            SubjectInfo subject = subjects[subjectIndex];
+
+            // 找到科目标签TextView
+            ViewGroup parent = (ViewGroup) homeworkEdits[subjectIndex].getParent();
+            if (parent != null) {
+                TextView subjectLabel = (TextView) parent.getChildAt(0);
+                subjectLabel.setText(subject.name);
+                subjectLabel.setTextColor(subject.color);
+            }
+
+            // 更新提示文字
+            homeworkEdits[subjectIndex].setHint(subject.hint);
+        }
+    }
+
+    // 更新所有科目显示
+    private void updateAllSubjectsDisplay() {
+        for (int i = 0; i < subjects.length; i++) {
+            updateSubjectDisplay(i);
+        }
+    }
+
+    // ↓↓↓ 添加这个方法到MainActivity类中 ↓↓↓
+    private boolean hasDataForDate(int year, int month, int day) {
+        Calendar date = Calendar.getInstance();
+        date.set(year, month, day);
+        String dateKey = getDateKey(date);
+        String savedData = PreferenceHelper.getString(this, dateKey, "");
+
+        if (!TextUtils.isEmpty(savedData)) {
+            try {
+                JSONObject jsonData = new JSONObject(savedData);
+                // 检查是否有作业或日记数据
+                JSONObject homeworkData = jsonData.optJSONObject("homework");
+                String diary = jsonData.optString("diary", "");
+
+                // 如果有任何作业或日记内容，返回true
+                if (homeworkData != null) {
+                    for (int i = 0; i < 8; i++) {
+                        String homework = homeworkData.optString("subject" + (i + 1), "");
+                        if (!TextUtils.isEmpty(homework)) {
+                            return true;
+                        }
+                    }
+                }
+
+                return !TextUtils.isEmpty(diary);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+    // ↑↑↑ 添加到这里 ↑↑↑
+
     // 日历适配器类 - 这就是缺失的CalendarAdapter
     private class CalendarAdapter extends BaseAdapter {
         private List<CalendarDateItem> dateItems;
@@ -299,17 +594,18 @@ public class MainActivity extends AppCompatActivity {
             // 回到当前月，添加当前月的日期
             calendar.add(Calendar.MONTH, 1);
             for (int i = 1; i <= daysInMonth; i++) {
-                // 简单模拟：在特定日期显示事件标记
-                boolean hasEvent = (i == 1 || i == 8 || i == 15 || i == 20 || i == 25);
+                // ↓↓↓ 修改这里：检查该日期是否有保存的数据 ↓↓↓
+                boolean hasEvent = hasDataForDate(calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH), i);
                 dateItems.add(new CalendarDateItem(i, true, hasEvent));
             }
-
-            // 计算需要显示的下个月天数（凑满6行42格）
+            // 添加下个月的日期
             int totalCells = 42;
-            int nextMonthDays = totalCells - dateItems.size();
-            for (int i = 1; i <= nextMonthDays; i++) {
+            int remainingCells = totalCells - dateItems.size();
+            for (int i = 1; i <= remainingCells; i++) {
                 dateItems.add(new CalendarDateItem(i, false, false));
             }
+
         }
 
 
@@ -375,6 +671,7 @@ public class MainActivity extends AppCompatActivity {
 
             return convertView;
         }
+
 
         class ViewHolder {
             TextView tvDate;
