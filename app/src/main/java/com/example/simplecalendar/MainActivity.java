@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText etSubjectName = dialogView.findViewById(R.id.et_subject_name);
         final EditText etSubjectHint = dialogView.findViewById(R.id.et_subject_hint);
         GridView gvColors = dialogView.findViewById(R.id.gv_colors);
-        Button btnDelete = dialogView.findViewById(R.id.btn_delete);
+//        Button btnDelete = dialogView.findViewById(R.id.btn_delete);
         Button btnCancel = dialogView.findViewById(R.id.btn_cancel);
         Button btnSave = dialogView.findViewById(R.id.btn_save_subject);
 
@@ -292,23 +292,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("确认删除")
-                        .setMessage("确定要删除这个科目吗？")
-                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // 这里可以实现科目删除逻辑
-                                Toast.makeText(MainActivity.this, "科目删除功能待实现", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("取消", null)
-                        .show();
-            }
-        });
+//        btnDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new AlertDialog.Builder(MainActivity.this)
+//                        .setTitle("确认删除")
+//                        .setMessage("确定要删除这个科目吗？")
+//                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // 这里可以实现科目删除逻辑
+//                                Toast.makeText(MainActivity.this, "科目删除功能待实现", Toast.LENGTH_SHORT).show();
+//                            }
+//                        })
+//                        .setNegativeButton("取消", null)
+//                        .show();
+//            }
+//        });
 
         dialog.show();
     }

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#CABCBCF0"
     android:padding="16dp">
 
     <TextView
@@ -76,15 +77,15 @@
         android:orientation="horizontal"
         android:layout_marginTop="16dp">
 
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="删除"
-            android:background="#FF5252"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="8dp" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_delete"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="删除"-->
+<!--            android:background="#FF5252"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:layout_marginEnd="8dp" />-->
 
         <Button
             android:id="@+id/btn_cancel"

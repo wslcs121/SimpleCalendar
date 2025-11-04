@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2024年1月1日"
+            android:text="@string/_2024_1_1"
             android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
@@ -32,7 +34,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@android:drawable/ic_menu_my_calendar"
-            android:tint="#4CAF50" />
+            app:tint="#4CAF50"
+            tools:ignore="UseAppTint" />
 
     </LinearLayout>
 
@@ -57,14 +60,15 @@
             android:paddingVertical="8dp"
             android:paddingHorizontal="16dp">
 
+            <!-- 修改上一月按钮 -->
             <Button
                 android:id="@+id/btn_previous"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="◀"
-                android:textSize="20sp"
-                android:textColor="#4CAF50"
-                android:background="@drawable/button_bg"
+                android:text="←"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/circle_button_bg"
                 android:textStyle="bold" />
 
             <TextView
@@ -93,13 +97,14 @@
         <GridView
             android:id="@+id/gv_calendar"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:numColumns="7"
-            android:verticalSpacing="0.5dp"
-            android:horizontalSpacing="0.5dp"
+            android:verticalSpacing="1dp"
+            android:horizontalSpacing="1dp"
             android:gravity="center"
             android:background="#3D3D3D"
-            android:stretchMode="columnWidth" />
+            android:stretchMode="columnWidth"
+            android:columnWidth="0dp" />  <!-- 添加列宽限制 -->
 
     </LinearLayout>
 
@@ -137,6 +142,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="8dp">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -144,6 +150,7 @@
                         android:textColor="#FF6B6B"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/et_homework_1"
                         android:layout_width="0dp"
@@ -162,8 +169,8 @@
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="#888888"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        app:tint="#888888" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,6 +178,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="8dp">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -178,6 +186,7 @@
                         android:textColor="#4ECDC4"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/et_homework_2"
                         android:layout_width="0dp"
@@ -189,13 +198,14 @@
                         android:padding="8dp"
                         android:hint="数学作业..."
                         android:textColorHint="#888888" />
+
                     <ImageButton
                         android:id="@+id/btn_edit_2"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="@color/_888888"
+
                         android:padding="8dp" />
                 </LinearLayout>
 
@@ -204,6 +214,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="8dp">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -211,6 +222,7 @@
                         android:textColor="#45B7D1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/et_homework_3"
                         android:layout_width="0dp"
@@ -229,7 +241,7 @@
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="#888888"
+
                         android:padding="8dp" />
                 </LinearLayout>
 
@@ -239,6 +251,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="8dp">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -246,6 +259,7 @@
                         android:textColor="#96CEB4"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/et_homework_4"
                         android:layout_width="0dp"
@@ -257,14 +271,15 @@
                         android:padding="8dp"
                         android:hint="物理作业..."
                         android:textColorHint="#888888" />
+
                     <ImageButton
                         android:id="@+id/btn_edit_4"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="#888888"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        app:tint="#888888" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -272,6 +287,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="8dp">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -279,6 +295,7 @@
                         android:textColor="#FECA57"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/et_homework_5"
                         android:layout_width="0dp"
@@ -290,14 +307,15 @@
                         android:padding="8dp"
                         android:hint="化学作业..."
                         android:textColorHint="#888888" />
+
                     <ImageButton
                         android:id="@+id/btn_edit_5"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="#888888"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        app:tint="#888888" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -305,6 +323,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="8dp">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -312,6 +331,7 @@
                         android:textColor="#FF9FF3"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/et_homework_6"
                         android:layout_width="0dp"
@@ -323,14 +343,15 @@
                         android:padding="8dp"
                         android:hint="生物作业..."
                         android:textColorHint="#888888" />
+
                     <ImageButton
                         android:id="@+id/btn_edit_6"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="#888888"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        app:tint="#888888" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -338,6 +359,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="8dp">
+
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -345,6 +367,7 @@
                         android:textColor="#54A0FF"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/et_homework_7"
                         android:layout_width="0dp"
@@ -356,14 +379,15 @@
                         android:padding="8dp"
                         android:hint="历史作业..."
                         android:textColorHint="#888888" />
+
                     <ImageButton
                         android:id="@+id/btn_edit_7"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="#888888"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        app:tint="#888888" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -395,8 +419,8 @@
                         android:layout_height="40dp"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="#888888"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        app:tint="#888888" />
                 </LinearLayout>
             </LinearLayout>
 
